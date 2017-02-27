@@ -30,6 +30,10 @@ Route::group(array(
 ), function () {
 	// 后台登录页面
 	Route::get('/login', 'Admin\LoginController@getIndex');
+	// 后台主页
+	Route::get('/', 'Admin\HomeController@getIndex');
+	Route::get('/index', 'Admin\HomeController@getIndex');
+
 	Route::get('/test', 'Admin\LoginController@test');
 });
 

@@ -8,15 +8,14 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController
-{
+class Controller extends BaseController {
 	protected $errorHandler = null;
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 	/**
 	 * 构造方法
 	 */
-    public function __construct() {
-    	$this->errorHandler = ErrorHandler::getInstance();
+	public function __construct() {
+		$this->errorHandler = ErrorHandler::getInstance();
 	}
 }

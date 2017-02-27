@@ -362,4 +362,30 @@ $('.sidebar-nav-sub-title').on('click', function() {
     $(this).siblings('.sidebar-nav-sub').slideToggle(80)
         .end()
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
-})
+});
+
+function ajaxPostRequest(url, data, success, error, dataType) {
+	dataType = dataType || 'json';
+	var ajaxConfig = {
+		type: 'POST',
+		url: url,
+		dataType: dataType,
+		cache: false,
+		data: data,
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="crsfToken"]').attr('content')
+		},
+		success: success,
+		error: function(xhr, type){
+			var statusCode = xhr.status;
+			if (statusCode == 422) {
+				console.log(xhr.responseJSON);
+            } else {
+				if ($.isFunction(error)) {
+					error();
+                }
+            }
+		}
+    };
+	$.ajax(ajaxConfig);
+}

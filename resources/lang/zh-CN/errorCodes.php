@@ -10,4 +10,6 @@ return array(
 	'no_error' => '没有错误',
 	'admin_not_found' => '管理员不存在',
 	'admin_pwd_wrong' => '管理员密码不正确',
+	'admin_login_failed' => '用户名或密码错误',
+	'admin_login_success' => '登录成功',
 );

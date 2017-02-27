@@ -8,10 +8,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Traits\AdminControllerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller {
+	use AdminControllerTrait;
 	/**
 	 * 构造方法
 	 */
@@ -26,34 +28,37 @@ class LoginController extends Controller {
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function getIndex(Request $request) {
-		return view('admin/login');
+		return $this->adminView('login');
 	}
 
 	/**
 	 * 执行登录操作
 	 *
 	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function postIndex(Request $request) {
-		dump($_GET);
 		$this->validate($request, array(
 			'username' => 'required',
 			'password' => 'required',
 		));
 		$admin = new Admin();
-
-		echo 111;
+		$loginResult = $admin->loginCheck($request->get('username'), $request->get('password'));
+		// 登录失败情况
+		if ($loginResult !== true) {
+			return response()->json($loginResult);
+		}
+		// 保存管理员session
+		$session_key = config('custom.admin_session_key');
+		$session_info = $admin->getSessionInfo(array(
+			'username' => $request->get('username'),
+		));
+		$request->session()->put($session_key, $session_info);
+		return response()->json($this->errorHandler->getError('admin_login_success'));
 	}
 
 	public function test(Request $request) {
-		$data = array(
-			'role_id' => 0,
-			'username' => 'chency147',
-			'nickname' => 'chency147',
-			'password' => '123456',
-			'created_ip' => ip2long($request->getClientIp()),
-		);
-		$admin = new Admin();
-		dump($admin->loginCheck('chency147', '123456'));
+		$session_key = config('custom.admin_session_key');
+		dump($request->session()->get($session_key));
 	}
 }

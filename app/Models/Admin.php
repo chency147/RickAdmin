@@ -13,7 +13,6 @@ namespace App\Models;
 use App\Tools\ArrayFilter;
 use App\Tools\GUID;
 use App\Tools\Password;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 
 class Admin extends BaseModel {
@@ -60,7 +59,7 @@ class Admin extends BaseModel {
 	 *
 	 * @param string $username 用户名
 	 * @param string $password 密码明文
-	 * @return mixed
+	 * @return bool|array
 	 */
 	public function loginCheck($username, $password) {
 		$admin = $this->getInfo(array(
@@ -69,13 +68,25 @@ class Admin extends BaseModel {
 			'admin_id', 'username', 'password'
 		));
 		if ($admin == null) {
-			return $this->errorHandler->getError('admin_not_found');
+			return $this->errorHandler->getError('admin_login_failed');
 		}
 		if (Password::verify($password, $admin['password'])) {
 			return true;
 		} else {
-			return $this->errorHandler->getError('admin_pwd_wrong');
+			return $this->errorHandler->getError('admin_login_failed');
 		}
 	}
 
+	/**
+	 * 获取要保存在Session中的管理员信息
+	 *
+	 * @param array $where 查询条件，通常是admin_id或者是username
+	 * @return bool|array
+	 */
+	public function getSessionInfo($where) {
+		$admin = $this->getInfo($where, array(
+			'admin_id', 'username', 'guid', 'nickname'
+		));
+		return empty($admin) ? false : $admin->getAttributes();
+	}
 }
