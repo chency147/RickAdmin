@@ -6,6 +6,10 @@
 		<div class="tpl-login-content">
 			<div class="tpl-login-logo">
 			</div>
+			<div class="am-alert am-alert-danger" data-am-alert>
+				<button type="button" class="am-close">&times;</button>
+				<p>密码错误</p>
+			</div>
 			<form class="am-form tpl-form-line-form" method="post" action="/admin/login" id="form-login">
 				{{ csrf_field() }}
 				<div class="am-form-group">
@@ -29,13 +33,5 @@
 	</div>
 @endsection
 @section('footJS')
-	<script>
-		$(function () {
-			$('#btn-submit').click(function () {
-				ajaxPostRequest('/admin/login', $('#form-login').serializeArray(), function(ret) {
-
-				}, null, 'json');
-			});
-		})
-	</script>
+	<script src="/assets/js/admin/login.js" type="text/javascript"></script>
 @endsection

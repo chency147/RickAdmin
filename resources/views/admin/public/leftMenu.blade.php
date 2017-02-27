@@ -4,7 +4,7 @@
 	<div class="tpl-sidebar-user-panel">
 		<div class="tpl-user-panel-slide-toggleable">
 			<div class="tpl-user-panel-profile-picture">
-				<img src="assets/img/user04.png" alt="">
+				<img src="/assets/img/user04.png" alt="">
 			</div>
 			<span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
@@ -18,8 +18,8 @@
 	<ul class="sidebar-nav">
 		<li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
 		<li class="sidebar-nav-link">
-			<a href="index.html" class="active">
-				<i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+			<a href="/admin/" class="active">
+				<i class="am-icon-dashboard sidebar-nav-link-logo"></i> 首页
 			</a>
 		</li>
 		<li class="sidebar-nav-link">

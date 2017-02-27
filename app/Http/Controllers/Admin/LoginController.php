@@ -58,7 +58,9 @@ class LoginController extends Controller {
 	}
 
 	public function test(Request $request) {
-		$session_key = config('custom.admin_session_key');
-		dump($request->session()->get($session_key));
+		echo config('app.locale');
+		echo trans('errorCodes.admin_login_success');
+		echo "<br />";
+		echo trans('validation.accepted');
 	}
 }

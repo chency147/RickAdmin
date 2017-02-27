@@ -35,13 +35,13 @@ Route::group(array(
 	Route::get('/index', 'Admin\HomeController@getIndex');
 
 	Route::get('/test', 'Admin\LoginController@test');
+
+	Route::group(array(
+		'middleware' => 'onlyPost',
+	), function () {
+		// 后台执行登录操作
+		Route::post('/login', 'Admin\LoginController@postIndex');
+	});
 });
 
-Route::group(array(
-	'prefix' => '/admin',
-	'middleware' => 'onlyPost',
-), function () {
-	// 后台执行登录操作
-	Route::post('/login', 'Admin\LoginController@postIndex');
-});
 /* 管理员后台路由 END */
