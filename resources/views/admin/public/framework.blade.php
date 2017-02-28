@@ -39,7 +39,7 @@
 	@yield('body')
 </div>
 <script src="//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-<script src="/assets/js/app.js"></script>
+<script src="/assets/js/admin/app.js"></script>
 @yield('footJS')
 </body>
 </html>

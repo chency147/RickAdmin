@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\ErrorHandler;
+use App\Exceptions\StatusHandler;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController {
-	protected $errorHandler = null;
+	protected $statusHandler = null;
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 	/**
 	 * 构造方法
 	 */
 	public function __construct() {
-		$this->errorHandler = ErrorHandler::getInstance();
+		$this->statusHandler = StatusHandler::getInstance();
 	}
 }

@@ -20,7 +20,8 @@ class Admin extends BaseModel {
 	protected $primaryKey = 'admin_id';
 
 	protected $fillable = array(
-		'role_id', 'username', 'guid', 'nickname', 'password', 'created_at', 'updated_at', 'login_at', 'created_ip'
+		'role_id', 'username', 'guid', 'nickname', 'password', 'avatar',
+		'created_at', 'updated_at', 'login_at', 'created_ip'
 	);
 
 	// 创建时必需的字段
@@ -43,13 +44,13 @@ class Admin extends BaseModel {
 		try {
 			$this->save();
 			return array(
-				'result' => true,
-				'admin_id' => $this->getAttribute('admin_id')
+				'result'   => true,
+				'admin_id' => $this->getAttribute($this->primaryKey)
 			);
 		} catch (QueryException $e) {
 			return array(
 				'result' => false,
-				'code' => $e->getCode()
+				'code'   => $e->getCode()
 			);
 		}
 	}
@@ -68,12 +69,12 @@ class Admin extends BaseModel {
 			'admin_id', 'username', 'password'
 		));
 		if ($admin == null) {
-			return $this->errorHandler->getError('admin_login_failed');
+			return $this->statusHandler->getStatus('admin_login_failed');
 		}
 		if (Password::verify($password, $admin['password'])) {
 			return true;
 		} else {
-			return $this->errorHandler->getError('admin_login_failed');
+			return $this->statusHandler->getStatus('admin_login_failed');
 		}
 	}
 

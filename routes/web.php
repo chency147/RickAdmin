@@ -28,20 +28,29 @@ Route::get('/guid', function () {
 Route::group(array(
 	'prefix' => '/admin',
 ), function () {
-	// 后台登录页面
-	Route::get('/login', 'Admin\LoginController@getIndex');
-	// 后台主页
-	Route::get('/', 'Admin\HomeController@getIndex');
-	Route::get('/index', 'Admin\HomeController@getIndex');
-
+	// 测试页面
 	Route::get('/test', 'Admin\LoginController@test');
+	// 后台登录页面
+	Route::get('/login', 'Admin\LoginController@getIndex')->name('adminLogin');
 
+	// 需要管理员登录才能访问的界面
+	Route::group(array(
+		'middleware' => 'admin.guest',
+	), function () {
+		// 后台主页
+		Route::get('/', 'Admin\HomeController@getIndex');
+		Route::get('/index', 'Admin\HomeController@getIndex');
+	});
+
+
+	// 只允许用Post方式提交的请求
 	Route::group(array(
 		'middleware' => 'onlyPost',
 	), function () {
 		// 后台执行登录操作
 		Route::post('/login', 'Admin\LoginController@postIndex');
+		// 后台执行登出操作
+		Route::post('/logout', 'Admin\LogoutController@postIndex');
 	});
 });
-
 /* 管理员后台路由 END */

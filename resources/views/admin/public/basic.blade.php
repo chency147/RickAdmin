@@ -1,6 +1,7 @@
 @extends('admin.public.framework')
 @section('css')
 	<link rel="stylesheet" href="/assets/css/amazeui.datatables.min.css"/>
+	<link href="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 	@yield('extendCSS')
 @endsection
 @section('headJS')
@@ -26,5 +27,6 @@
 @section('footJS')
 	<script src="/assets/js/amazeui.datatables.min.js"></script>
 	<script src="/assets/js/dataTables.responsive.min.js"></script>
+	<script src="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	@yield('extendFootJS')
 @endsection

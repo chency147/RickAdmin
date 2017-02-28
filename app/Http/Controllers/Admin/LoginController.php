@@ -2,7 +2,9 @@
 /**
  * 后台登录控制器
  *
- * @package App\Http\Controllers\Admin
+ * User: rick
+ * Date: 17-2-28
+ * Time: 下午3:17
  */
 
 namespace App\Http\Controllers\Admin;
@@ -14,6 +16,7 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller {
 	use AdminControllerTrait;
+
 	/**
 	 * 构造方法
 	 */
@@ -49,12 +52,12 @@ class LoginController extends Controller {
 			return response()->json($loginResult);
 		}
 		// 保存管理员session
-		$session_key = config('custom.admin_session_key');
-		$session_info = $admin->getSessionInfo(array(
+		$sessionKey = config('custom.admin_session_key');
+		$sessionInfo = $admin->getSessionInfo(array(
 			'username' => $request->get('username'),
 		));
-		$request->session()->put($session_key, $session_info);
-		return response()->json($this->errorHandler->getError('admin_login_success'));
+		$request->session()->put($sessionKey, $sessionInfo);
+		return response()->json($this->statusHandler->getStatus('admin_login_success'));
 	}
 
 	public function test(Request $request) {

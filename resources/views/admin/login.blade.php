@@ -6,10 +6,7 @@
 		<div class="tpl-login-content">
 			<div class="tpl-login-logo">
 			</div>
-			<div class="am-alert am-alert-danger" data-am-alert>
-				<button type="button" class="am-close">&times;</button>
-				<p>密码错误</p>
-			</div>
+			<div id="msg-container"></div>
 			<form class="am-form tpl-form-line-form" method="post" action="/admin/login" id="form-login">
 				{{ csrf_field() }}
 				<div class="am-form-group">
@@ -25,8 +22,10 @@
 					</label>
 				</div>
 				<div class="am-form-group">
-					<input type="submit" value="提交" onclick="return false;" id="btn-submit"
-						   class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn"/>
+					<button type="button" id="btn-submit" autocomplete="off"
+							class="am-btn am-btn-primary am-btn-block tpl-btn-bg-color-success tpl-login-btn"
+							data-am-loading="{spinner: 'circle-o-notch', loadingText: '登录中...'}">登录
+					</button>
 				</div>
 			</form>
 		</div>

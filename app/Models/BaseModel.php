@@ -11,11 +11,12 @@ namespace App\Models;
 
 
 use App\Exceptions\ErrorHandler;
-use Illuminate\Database\Eloquent\Collection;
+use App\Exceptions\StatusHandler;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model {
-	protected $errorHandler = null;
+	// 状态处理句柄
+	protected $statusHandler = null;
 	// 默认使用时间戳戳功能
 	public $timestamps = true;
 	// 使用Unix时间戳格式记录时间
@@ -28,7 +29,7 @@ class BaseModel extends Model {
 	 */
 	public function __construct(array $attributes = []) {
 		parent::__construct($attributes);
-		$this->errorHandler = ErrorHandler::getInstance();
+		$this->statusHandler = StatusHandler::getInstance();
 	}
 
 	/**
