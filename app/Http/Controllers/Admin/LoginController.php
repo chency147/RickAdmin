@@ -10,6 +10,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Module;
 use App\Traits\AdminControllerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -61,9 +62,7 @@ class LoginController extends Controller {
 	}
 
 	public function test(Request $request) {
-		echo config('app.locale');
-		echo trans('errorCodes.admin_login_success');
-		echo "<br />";
-		echo trans('validation.accepted');
+		$module = new Module();
+		dd($module->getList());
 	}
 }
