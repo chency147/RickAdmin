@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        10.1.21-MariaDB-1~xenial - mariadb.org binary distribution
--- 服务器操作系统:                      debian-linux-gnu
+-- 服务器版本:                        10.1.19-MariaDB - Source distribution
+-- 服务器操作系统:                      Linux
 -- HeidiSQL 版本:                  9.4.0.5125
 -- --------------------------------------------------------
 
@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- 导出 rick_admin 的数据库结构
-CREATE DATABASE IF NOT EXISTS `rick_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `rick_admin`;
+-- 导出 db_rick_admin 的数据库结构
+CREATE DATABASE IF NOT EXISTS `db_rick_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `db_rick_admin`;
 
--- 导出  表 rick_admin.ccy_admin 结构
+-- 导出  表 db_rick_admin.ccy_admin 结构
 CREATE TABLE IF NOT EXISTS `ccy_admin` (
   `admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `role_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '角色ID',
@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `ccy_admin` (
   `guid` char(36) NOT NULL COMMENT 'GUID',
   `nickname` varchar(20) NOT NULL COMMENT '昵称',
   `password` char(255) NOT NULL COMMENT '密码',
+  `avatar` char(255) NOT NULL DEFAULT 'default' COMMENT '头像地址(默认为default)',
   `created_at` int(10) unsigned NOT NULL COMMENT '创建时间',
   `created_ip` int(10) unsigned NOT NULL COMMENT '创建IP',
   `updated_at` int(10) unsigned NOT NULL COMMENT '更新时间',
@@ -35,12 +36,38 @@ CREATE TABLE IF NOT EXISTS `ccy_admin` (
   KEY `guid` (`guid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
 
--- 正在导出表  rick_admin.ccy_admin 的数据：~0 rows (大约)
+-- 正在导出表  db_rick_admin.ccy_admin 的数据：~1 rows (大约)
 DELETE FROM `ccy_admin`;
 /*!40000 ALTER TABLE `ccy_admin` DISABLE KEYS */;
-INSERT INTO `ccy_admin` (`admin_id`, `role_id`, `username`, `guid`, `nickname`, `password`, `created_at`, `created_ip`, `updated_at`, `login_at`, `login_ip`) VALUES
-	(9, 0, 'chency147', 'BBD99338-4216-62C3-6991-78E82B2B979D', 'chency147', '$2y$10$zixqBdTDBZ9TTLnXBCPdmOBmioA.BPBh//eL2aufvvkrQzmCPZpqO', 1486448139, 2130706433, 1486448139, 0, 0);
+INSERT INTO `ccy_admin` (`admin_id`, `role_id`, `username`, `guid`, `nickname`, `password`, `avatar`, `created_at`, `created_ip`, `updated_at`, `login_at`, `login_ip`) VALUES
+	(9, 0, 'chency147', 'BBD99338-4216-62C3-6991-78E82B2B979D', 'chency147', '$2y$10$zixqBdTDBZ9TTLnXBCPdmOBmioA.BPBh//eL2aufvvkrQzmCPZpqO', 'default', 1486448139, 2130706433, 1486448139, 0, 0);
 /*!40000 ALTER TABLE `ccy_admin` ENABLE KEYS */;
+
+-- 导出  表 db_rick_admin.ccy_module 结构
+CREATE TABLE IF NOT EXISTS `ccy_module` (
+  `module_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '模块ID',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级模块ID',
+  `code` varchar(64) NOT NULL COMMENT '模块英文命名，用以未来多语言扩展',
+  `name` varchar(32) NOT NULL COMMENT '模块名称，暂时先用中文存储',
+  `icon` varchar(32) NOT NULL COMMENT '模块图标，保存Icon-Font的类名',
+  `controller` varchar(32) DEFAULT NULL COMMENT '控制器',
+  `action` varchar(32) DEFAULT NULL COMMENT '操作',
+  `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序字段',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次更新时间',
+  `is_show` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否显示在菜单',
+  PRIMARY KEY (`module_id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `sort` (`sort`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='后台模块列表';
+
+-- 正在导出表  db_rick_admin.ccy_module 的数据：~2 rows (大约)
+DELETE FROM `ccy_module`;
+/*!40000 ALTER TABLE `ccy_module` DISABLE KEYS */;
+INSERT INTO `ccy_module` (`module_id`, `parent_id`, `code`, `name`, `icon`, `controller`, `action`, `sort`, `created_at`, `updated_at`, `is_show`) VALUES
+	(1, 0, 'moduleManager', '模块管理', 'am-icon-th-large ', NULL, NULL, 0, 0, 0, 1),
+	(2, 1, 'moduleList', '模块列表', '', 'module', 'index', 0, 0, 0, 1);
+/*!40000 ALTER TABLE `ccy_module` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
