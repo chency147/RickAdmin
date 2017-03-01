@@ -40,6 +40,9 @@ Route::group(array(
 		// 后台主页
 		Route::get('/', 'Admin\HomeController@getIndex');
 		Route::get('/index', 'Admin\HomeController@getIndex');
+		// 模块列表页面
+		Route::get('/module', 'Admin\ModuleController@getModuleIndex');
+		Route::get('/module/index', 'Admin\ModuleController@getModuleIndex');
 	});
 
 

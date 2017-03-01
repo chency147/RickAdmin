@@ -18,7 +18,7 @@ class Module extends BaseModel {
 	protected $primaryKey = 'module_id';
 
 	protected $fillable = array(
-		'parent_id', 'code', 'name', 'icon', 'controller', 'action',
+		'parent_id', 'code', 'name', 'icon', 'controller', 'action', 'sort',
 		'created_at', 'updated_at'
 	);
 
@@ -104,5 +104,44 @@ class Module extends BaseModel {
 		} else {
 			return $query->get();
 		}
+	}
+
+	/**
+	 * 获取后台侧边菜单的数据
+	 *
+	 * @param string $controller 控制器
+	 * @param string $action 操作
+	 * @return array
+	 */
+	public function getMenuData($controller = null, $action = null) {
+		// 判断是不是主页
+		$fields = array(
+			$this->primaryKey, 'parent_id', 'code', 'name', 'icon', 'controller', 'action', 'sort', 'is_show'
+		);
+		// TODO 之后要在这里加入权限验证以及缓存
+		$query = DB::table($this->table)
+			->select($fields)
+			->where('is_show', '=', 1)
+			->orderBy('parent_id', 'asc')
+			->orderBy('sort', 'desc');
+		$moduleCollection = $query->get();
+		$menuData = array();
+		// 菜单数据组装
+		foreach ($moduleCollection as $module) {
+			if ($module->parent_id == 0) {
+				$module->subMenu = array();
+				$menuData[$module->module_id] = $module;
+				$module->isActive = false;
+				continue;
+			}
+			// 组装子菜单
+			$menuData[$module->parent_id]->subMenu[] = $module;
+			// 根据操作判断当前页面是否属于该操作
+			$module->isActive = $controller == $module->controller && $action == $module->action;
+			if ($module->isActive) {
+				$menuData[$module->parent_id]->isActive = true;
+			}
+		}
+		return $menuData;
 	}
 }

@@ -16,12 +16,13 @@
 
 	<!-- 菜单 -->
 	<ul class="sidebar-nav">
-		<li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+		<!-- <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>-->
 		<li class="sidebar-nav-link">
-			<a href="/admin/" class="active">
+			<a href="/admin/" class="@if($controller == 'index') active @endif">
 				<i class="am-icon-dashboard sidebar-nav-link-logo"></i> 首页
 			</a>
 		</li>
+		<!--
 		<li class="sidebar-nav-link">
 			<a href="tables.html">
 				<i class="am-icon-table sidebar-nav-link-logo"></i> 表格
@@ -45,26 +46,29 @@
 			</a>
 		</li>
 
-		<li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
-		<li class="sidebar-nav-link">
-			<a href="javascript:;" class="sidebar-nav-sub-title">
-				<i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
-				<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-			</a>
-			<ul class="sidebar-nav sidebar-nav-sub">
-				<li class="sidebar-nav-link">
-					<a href="table-list.html">
-						<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
-					</a>
-				</li>
-
-				<li class="sidebar-nav-link">
-					<a href="table-list-img.html">
-						<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
-					</a>
-				</li>
-			</ul>
-		</li>
+-->
+		<!-- <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li> -->
+		@foreach($menuData as $menu)
+			<li class="sidebar-nav-link">
+				<a href="javascript:;" class="sidebar-nav-sub-title @if($menu->isActive) active @endif">
+					<i class="{{$menu->icon}} sidebar-nav-link-logo"></i> {{$menu->name}}
+					<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+				</a>
+				@if(!empty($menu->subMenu))
+					<ul class="sidebar-nav sidebar-nav-sub">
+						@foreach($menu->subMenu as $subMenu)
+							<li class="sidebar-nav-link">
+								<a href="/admin/{{$subMenu->controller}}/{{$subMenu->action}}"
+								   class="@if($subMenu->isActive) active @endif">
+									<span class="am-icon-angle-right sidebar-nav-link-logo"></span> {{$subMenu->name}}
+								</a>
+							</li>
+						@endforeach
+					</ul>
+				@endif
+			</li>
+	@endforeach
+	<!--
 		<li class="sidebar-nav-link">
 			<a href="sign-up.html">
 				<i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
@@ -81,6 +85,6 @@
 				<i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
 			</a>
 		</li>
-
+		-->
 	</ul>
 </div>

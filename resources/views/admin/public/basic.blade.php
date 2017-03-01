@@ -13,11 +13,7 @@
 	@include('admin.public.leftMenu')
 	<!-- 内容区域 -->
 	<div class="tpl-content-wrapper">
-		<div class="container-fluid am-cf">
-			<div class="row">
-				@yield('contentTitle')
-			</div>
-		</div>
+		@yield('contentTitle')
 		<div class="row-content am-cf">
 			@yield('content')
 		</div>

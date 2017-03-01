@@ -63,6 +63,6 @@ class LoginController extends Controller {
 
 	public function test(Request $request) {
 		$module = new Module();
-		dd($module->getList());
+		dd($module->getMenuData());
 	}
 }
