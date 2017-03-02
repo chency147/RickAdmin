@@ -29,12 +29,15 @@ class ModuleController extends Controller {
 	 */
 	public function getModuleIndex() {
 		$module = new Module();
-		$module->getList(array(
+		$moduleList  = $module->getList(array(
 			'parent_id' => 0
 		), array(
 			'module_id', 'code', 'name', 'icon', 'sort', 'is_show'
 		), array(
 			array('sort', 'desc')
 		), 10);
+		return $this->adminView('module.index', array(
+			'moduleList' => &$moduleList
+		));
 	}
 }

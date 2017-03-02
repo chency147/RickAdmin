@@ -52,19 +52,21 @@
 			<li class="sidebar-nav-link">
 				<a href="javascript:;" class="sidebar-nav-sub-title @if($menu->isActive) active @endif">
 					<i class="{{$menu->icon}} sidebar-nav-link-logo"></i> {{$menu->name}}
-					<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+					@if(!empty($menu->subMenu))
+						<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico @if($menu->isActive) sidebar-nav-sub-ico-rotate @endif"></span>
 				</a>
-				@if(!empty($menu->subMenu))
-					<ul class="sidebar-nav sidebar-nav-sub">
-						@foreach($menu->subMenu as $subMenu)
-							<li class="sidebar-nav-link">
-								<a href="/admin/{{$subMenu->controller}}/{{$subMenu->action}}"
-								   class="@if($subMenu->isActive) active @endif">
-									<span class="am-icon-angle-right sidebar-nav-link-logo"></span> {{$subMenu->name}}
-								</a>
-							</li>
-						@endforeach
-					</ul>
+				<ul class="sidebar-nav sidebar-nav-sub" @if($menu->isActive) style="display: block;" @endif>
+					@foreach($menu->subMenu as $subMenu)
+						<li class="sidebar-nav-link">
+							<a href="/admin/{{$subMenu->controller}}/{{$subMenu->action}}"
+							   class="@if($subMenu->isActive) sub-active @endif">
+								<span class="am-icon-angle-right sidebar-nav-link-logo"></span> {{$subMenu->name}}
+							</a>
+						</li>
+					@endforeach
+				</ul>
+				@else
+				</a>
 				@endif
 			</li>
 	@endforeach
