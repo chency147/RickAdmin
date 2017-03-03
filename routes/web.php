@@ -43,6 +43,8 @@ Route::group(array(
 		// 模块列表页面
 		Route::get('/module', 'Admin\ModuleController@getModuleIndex');
 		Route::get('/module/index', 'Admin\ModuleController@getModuleIndex');
+		// 模块编辑页面
+		Route::get('/module/edit', 'Admin\ModuleController@getModuleEdit');
 	});
 
 

@@ -99,11 +99,7 @@ class Module extends BaseModel {
 				}
 			}
 		}
-		if ($perPage > 0) {
-			return $query->paginate($perPage);
-		} else {
-			return $query->get();
-		}
+		return $query->paginate($perPage);
 	}
 
 	/**

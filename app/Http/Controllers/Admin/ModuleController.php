@@ -34,10 +34,19 @@ class ModuleController extends Controller {
 		), array(
 			'module_id', 'code', 'name', 'icon', 'sort', 'is_show'
 		), array(
-			array('sort', 'desc')
+			array('sort', 'desc'),
+			array('module_id', 'desc')
 		), 10);
 		return $this->adminView('module.index', array(
 			'moduleList' => &$moduleList
+		));
+	}
+
+	/**
+	 * 模块编辑页面
+	 */
+	public function getModuleEdit() {
+		return $this->adminView('module.edit', array(
 		));
 	}
 }
