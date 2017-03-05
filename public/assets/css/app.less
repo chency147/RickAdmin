@@ -10,7 +10,8 @@ a {
 
 header {
     z-index: 1200;
-    position: relative;
+    /*position: relative;*/
+    position: fixed;
 }
 .tpl-header-logo {
     width: 240px;
@@ -323,7 +324,10 @@ ul.tpl-dropdown-content {
     width: 240px;
     min-height: 100%;
     padding-top: 57px;
-    position: absolute;
+    /*position: absolute;*/
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
     z-index: 1104;
     top: 0;
     left: 0px;
@@ -1992,6 +1996,7 @@ color: #c5cacd;
         margin-left: 0
     }
     .tpl-header-logo {
+        display: none;
         float:none;
         width: 100%;
     }

@@ -6,7 +6,9 @@ li {
 }
 header {
   z-index: 1200;
-  position: relative;
+  /*position: relative;*/
+  position: fixed;
+  width: 100%;
 }
 .tpl-header-logo {
   width: 240px;
@@ -268,7 +270,10 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   width: 240px;
   min-height: 100%;
   padding-top: 57px;
-  position: absolute;
+  /*position: absolute;*/
+  height: 100%;
+  overflow-y: auto;
+  position: fixed;
   z-index: 1104;
   top: 0;
   left: 0px;
@@ -1860,6 +1865,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     margin-left: 0;
   }
   .tpl-header-logo {
+    display: none;
     float: none;
     width: 100%;
   }
