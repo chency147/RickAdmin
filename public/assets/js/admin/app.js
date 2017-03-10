@@ -5,7 +5,7 @@ $(window).on("beforeunload", function () {
 $(function () {
 	// 读取body data-type 判断是哪个页面然后执行相应页面方法，方法在下面。
 	var dataType = $('body').attr('data-type');
-	console.log(dataType);
+	// console.log(dataType);
 	for (key in pageData) {
 		if (key == dataType) {
 			pageData[key]();
@@ -22,7 +22,7 @@ $(function () {
 	autoLeftNav();
 	$(window).resize(function () {
 		autoLeftNav();
-		console.log($(window).width())
+		// console.log($(window).width())
 	});
 
 	//    if(storageLoad('SelcetColor')){
@@ -31,7 +31,7 @@ $(function () {
 	//       storageSave(saveSelectColor);
 	//     }
 	$('.tpl-header-switch-button').on('click', function () {
-		console.log($('.left-sidebar').is('.active'));
+		// console.log($('.left-sidebar').is('.active'));
 		if ($('.left-sidebar').is('.active')) {
 			if ($(window).width() > 1024) {
 				$('.tpl-content-wrapper').removeClass('active');

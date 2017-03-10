@@ -386,6 +386,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   z-index: 1101;
   min-height: 922px;
   border-bottom-left-radius: 3px;
+  padding-top: 56px;
 }
 .tpl-content-wrapper.xs-active {
   margin-left: 240px;
@@ -585,7 +586,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .tpl-switch input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
   -webkit-transform: translate3d(25px, 0, 0);
-  -moz-transform: translate3d(16px, 0, 0);
+  -moz-transform: translate3d(25px, 0, 0);
 }
 .tpl-switch input[type="checkbox"].green.ios-switch:checked + div > div {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px #00a23f;
