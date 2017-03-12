@@ -15,16 +15,15 @@ use Illuminate\Support\Facades\DB;
 
 class Module extends BaseModel {
 	protected $table = 'module';
-	protected $primaryKey = 'module_id';
 
 	protected $fillable = array(
-		'parent_id', 'code', 'name', 'icon', 'controller', 'action', 'sort',
+		'parent_code', 'code', 'name', 'icon', 'controller', 'action', 'sort',
 		'created_at', 'updated_at'
 	);
 
 	// 创建时必需的字段
 	private $_createFieldsNeed = array(
-		'code', 'name', 'icon', 'controller', 'action',
+		'parent_code', 'code', 'name', 'icon', 'controller', 'action',
 	);
 
 	/**
@@ -39,13 +38,13 @@ class Module extends BaseModel {
 		try {
 			$this->save();
 			return array(
-				'result'    => true,
-				'module_id' => $this->getAttribute($this->primaryKey)
+				'result' => true,
+				'code' => $this->getAttribute('code')
 			);
 		} catch (QueryException $e) {
 			return array(
 				'result' => false,
-				'code'   => $e->getCode()
+				'code' => $e->getCode()
 			);
 		}
 	}
@@ -73,7 +72,7 @@ class Module extends BaseModel {
 		} catch (QueryException $e) {
 			return array(
 				'result' => false,
-				'code'   => $e->getCode()
+				'code' => $e->getCode()
 			);
 		}
 	}
@@ -112,30 +111,32 @@ class Module extends BaseModel {
 	public function getMenuData($controller = null, $action = null) {
 		// 判断是不是主页
 		$fields = array(
-			$this->primaryKey, 'parent_id', 'code', 'name', 'icon', 'controller', 'action', 'sort', 'is_show'
+			'code', 'parent_code', 'name', 'icon', 'controller', 'action', 'sort', 'is_show'
 		);
 		// TODO 之后要在这里加入权限验证以及缓存
 		$query = DB::table($this->table)
 			->select($fields)
-			->where('is_show', '=', 1)
-			->orderBy('parent_id', 'asc')
+			// ->where('is_show', '=', 1)
+			->orderBy('parent_code', 'asc')
 			->orderBy('sort', 'desc');
 		$moduleCollection = $query->get();
 		$menuData = array();
 		// 菜单数据组装
 		foreach ($moduleCollection as $module) {
-			if ($module->parent_id == 0) {
+			if ($module->parent_code == null) {
 				$module->subMenu = array();
-				$menuData[$module->module_id] = $module;
+				$menuData[$module->code] = $module;
 				$module->isActive = false;
 				continue;
 			}
 			// 组装子菜单
-			$menuData[$module->parent_id]->subMenu[] = $module;
+			if ($module->is_show) {
+				$menuData[$module->parent_code]->subMenu[] = $module;
+			}
 			// 根据操作判断当前页面是否属于该操作
 			$module->isActive = $controller == $module->controller && $action == $module->action;
 			if ($module->isActive) {
-				$menuData[$module->parent_id]->isActive = true;
+				$menuData[$module->parent_code]->isActive = true;
 			}
 		}
 		return $menuData;

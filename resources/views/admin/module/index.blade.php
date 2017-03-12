@@ -105,7 +105,7 @@
 										<td>{{$module->sort}}</td>
 										<td>
 											<div class="tpl-table-black-operation">
-												<a href="/admin/module/edit?module_id={{ $module->module_id }}">
+												<a href="/admin/module/edit?code={{ $module->code }}">
 													<i class="am-icon-pencil"></i> 编辑
 												</a>
 												<a href="javascript:;" class="tpl-table-black-operation-del">

@@ -49,27 +49,29 @@
 -->
 		<!-- <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li> -->
 		@foreach($menuData as $menu)
-			<li class="sidebar-nav-link">
-				<a href="javascript:;" class="sidebar-nav-sub-title @if($menu->isActive) active @endif">
-					<i class="{{$menu->icon}} sidebar-nav-link-logo"></i> {{$menu->name}}
-					@if(!empty($menu->subMenu))
-						<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico @if($menu->isActive) sidebar-nav-sub-ico-rotate @endif"></span>
-				</a>
-				<ul class="sidebar-nav sidebar-nav-sub" @if($menu->isActive) style="display: block;" @endif>
-					@foreach($menu->subMenu as $subMenu)
-						<li class="sidebar-nav-link">
-							<a href="/admin/{{$subMenu->controller}}/{{$subMenu->action}}"
-							   class="@if($subMenu->isActive) sub-active @endif">
-								<span class="am-icon-angle-right sidebar-nav-link-logo"></span> {{$subMenu->name}}
-							</a>
-						</li>
-					@endforeach
-				</ul>
-				@else
-				</a>
-				@endif
-			</li>
-	@endforeach
+			@if($menu->is_show)
+				<li class="sidebar-nav-link">
+					<a href="javascript:;" class="sidebar-nav-sub-title @if($menu->isActive) active @endif">
+						<i class="{{$menu->icon}} sidebar-nav-link-logo"></i> {{$menu->name}}
+						@if(!empty($menu->subMenu))
+							<span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico @if($menu->isActive) sidebar-nav-sub-ico-rotate @endif"></span>
+					</a>
+					<ul class="sidebar-nav sidebar-nav-sub" @if($menu->isActive) style="display: block;" @endif>
+						@foreach($menu->subMenu as $subMenu)
+							<li class="sidebar-nav-link">
+								<a href="/admin/{{$subMenu->controller}}/{{$subMenu->action}}"
+								   class="@if($subMenu->isActive) sub-active @endif">
+									<span class="am-icon-angle-right sidebar-nav-link-logo"></span> {{$subMenu->name}}
+								</a>
+							</li>
+						@endforeach
+					</ul>
+					@else
+					</a>
+					@endif
+				</li>
+			@endif
+		@endforeach
 	<!--
 		<li class="sidebar-nav-link">
 			<a href="sign-up.html">

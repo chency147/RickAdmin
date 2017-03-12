@@ -346,7 +346,6 @@ $('.tpl-skiner-content-bar').find('span').on('click', function () {
 function autoLeftNav() {
 
 
-
 	if ($(window).width() < 1024) {
 		$('.left-sidebar').addClass('active');
 	} else {

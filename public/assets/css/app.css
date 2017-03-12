@@ -45,6 +45,7 @@ header {
   line-height: 55px;
 }
 .tpl-header-switch-button:hover {
+  cursor: pointer;
   outline: none;
 }
 .tpl-header-search-form {

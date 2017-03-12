@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        10.1.19-MariaDB - Source distribution
--- 服务器操作系统:                      Linux
+-- 服务器版本:                        10.1.21-MariaDB-1~xenial - mariadb.org binary distribution
+-- 服务器操作系统:                      debian-linux-gnu
 -- HeidiSQL 版本:                  9.4.0.5125
 -- --------------------------------------------------------
 
@@ -17,6 +17,7 @@ CREATE DATABASE IF NOT EXISTS `db_rick_admin` /*!40100 DEFAULT CHARACTER SET utf
 USE `db_rick_admin`;
 
 -- 导出  表 db_rick_admin.ccy_admin 结构
+DROP TABLE IF EXISTS `ccy_admin`;
 CREATE TABLE IF NOT EXISTS `ccy_admin` (
   `admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `role_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '角色ID',
@@ -36,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `ccy_admin` (
   KEY `guid` (`guid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
 
--- 正在导出表  db_rick_admin.ccy_admin 的数据：~1 rows (大约)
+-- 正在导出表  db_rick_admin.ccy_admin 的数据：~0 rows (大约)
 DELETE FROM `ccy_admin`;
 /*!40000 ALTER TABLE `ccy_admin` DISABLE KEYS */;
 INSERT INTO `ccy_admin` (`admin_id`, `role_id`, `username`, `guid`, `nickname`, `password`, `avatar`, `created_at`, `created_ip`, `updated_at`, `login_at`, `login_ip`) VALUES
@@ -44,10 +45,10 @@ INSERT INTO `ccy_admin` (`admin_id`, `role_id`, `username`, `guid`, `nickname`, 
 /*!40000 ALTER TABLE `ccy_admin` ENABLE KEYS */;
 
 -- 导出  表 db_rick_admin.ccy_module 结构
+DROP TABLE IF EXISTS `ccy_module`;
 CREATE TABLE IF NOT EXISTS `ccy_module` (
-  `module_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '模块ID',
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级模块ID',
-  `code` varchar(64) NOT NULL COMMENT '模块英文命名，用以未来多语言扩展',
+  `code` char(64) NOT NULL COMMENT '模块Code',
+  `parent_code` char(64) DEFAULT NULL COMMENT '父级模块Code',
   `name` varchar(32) NOT NULL COMMENT '模块名称，暂时先用中文存储',
   `icon` varchar(32) NOT NULL COMMENT '模块图标，保存Icon-Font的类名',
   `controller` varchar(32) DEFAULT NULL COMMENT '控制器',
@@ -56,17 +57,18 @@ CREATE TABLE IF NOT EXISTS `ccy_module` (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次更新时间',
   `is_show` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否显示在菜单',
-  PRIMARY KEY (`module_id`),
-  KEY `parent_id` (`parent_id`),
+  PRIMARY KEY (`code`),
+  KEY `parent_id` (`parent_code`),
   KEY `sort` (`sort`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='后台模块列表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台模块列表';
 
--- 正在导出表  db_rick_admin.ccy_module 的数据：~2 rows (大约)
+-- 正在导出表  db_rick_admin.ccy_module 的数据：~3 rows (大约)
 DELETE FROM `ccy_module`;
 /*!40000 ALTER TABLE `ccy_module` DISABLE KEYS */;
-INSERT INTO `ccy_module` (`module_id`, `parent_id`, `code`, `name`, `icon`, `controller`, `action`, `sort`, `created_at`, `updated_at`, `is_show`) VALUES
-	(1, 0, 'moduleManager', '模块管理', 'am-icon-th-large ', NULL, NULL, 0, 0, 0, 1),
-	(2, 1, 'moduleList', '模块列表', '', 'module', 'index', 0, 0, 0, 1);
+INSERT INTO `ccy_module` (`code`, `parent_code`, `name`, `icon`, `controller`, `action`, `sort`, `created_at`, `updated_at`, `is_show`) VALUES
+	('ModuleEdit', 'ModuleManager', '模块编辑', '', 'module', 'edit', 0, 0, 0, 0),
+	('ModuleList', 'ModuleManager', '模块列表', '', 'module', 'index', 0, 0, 0, 1),
+	('ModuleManager', NULL, '模块管理', 'am-icon-th-large ', NULL, NULL, 0, 0, 0, 1);
 /*!40000 ALTER TABLE `ccy_module` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
