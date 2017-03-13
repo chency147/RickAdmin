@@ -14,4 +14,9 @@ return array(
 	'admin_login_success' => '登录成功',
 	'admin_not_login' => '您尚未登录',
 	'admin_logout_success' => '您已退出登录',
+
+
+
+	/* HTTP 状态码部分 */
+	'http_error_400' => '请求参数不正确',
 );

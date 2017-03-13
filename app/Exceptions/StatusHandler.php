@@ -21,7 +21,7 @@ class StatusHandler {
 	 * 私有化构造方法，防止从外部声明
 	 */
 	private function __construct() {
-		$this->statusArray = config('statusCodes.codeList');
+		$this->statusArray = config($this->_statusCodesLangFile.'.codeList');
 	}
 
 	/**

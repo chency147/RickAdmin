@@ -54,13 +54,8 @@ class ModuleController extends Controller {
 			'code' => 'required'
 		));
 		if ($validator->fails()) {
-			echo 'Fuck';
+			return $this->errorPage(400, $validator->errors()->first());
 		}
-		/*
-		$this->validate($request, array(
-			'code' => 'required|integer'
-		));
-		*/
 		$module = new Module();
 		$module = $module->getInfo(array(
 			'code' => $request->get('code'),
